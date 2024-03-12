@@ -1,6 +1,10 @@
 package com.example.goodsapp.di
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.goodsapp.data.network.ProductsApi
+import com.example.goodsapp.data.network.ProductsPagingSource
+import com.example.goodsapp.domain.Product
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,5 +25,17 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductsPager(
+        productsApi: ProductsApi
+    ): Pager<Int, Product> {
+        return Pager(
+            config = PagingConfig(pageSize = ProductsApi.BASE_LIMIT),
+        ) {
+            ProductsPagingSource(productsApi)
+        }
     }
 }

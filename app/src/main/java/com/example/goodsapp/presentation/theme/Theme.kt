@@ -1,4 +1,4 @@
-package com.example.goodsapp.ui.theme
+package com.example.goodsapp.presentation.theme
 
 import android.app.Activity
 import android.os.Build
